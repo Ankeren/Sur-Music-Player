@@ -1,0 +1,107 @@
+plugins {
+    id 'com.android.application'
+
+    // --- FIREBASE (week 11) -------------------------------------------------
+    id 'com.google.gms.google-services'
+    // ------------------------------------------------------------------------
+}
+
+android {
+    namespace 'com.sur.player'
+    // 33 is the highest API level AGP 7.3.1 / Android Studio Dolphin supports.
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.sur.player"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        // Dolphin ships with JDK 11; Java 8 bytecode is what AGP 7.3 expects.
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // View binding generates a class per layout file, so we never call findViewById.
+    // Week 8 topic: "view binding".
+    buildFeatures {
+        viewBinding true
+    }
+
+    lint {
+        // Media3's ExoPlayer classes are marked @UnstableApi. In Java that
+        // shows up as the "UnsafeOptInUsageError" lint error. We opt in
+        // properly with @OptIn in MusicService, and switch the check off here
+        // so a clean build never fails on it.
+        disable 'UnsafeOptInUsageError'
+    }
+}
+
+// NOTE ON VERSIONS
+// Every androidx version below is the last one published for compileSdk 33.
+// Newer releases carry a "minCompileSdk 34" marker and make the build fail
+// with "requires ... compile against version 34 or later of the Android APIs".
+// If you ever raise compileSdk, these can all move up again.
+dependencies {
+    // --- Basic UI ----------------------------------------------------------
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.recyclerview:recyclerview:1.3.1'
+    implementation 'androidx.fragment:fragment:1.5.7'
+    // Provides @OptIn, used in MusicService for media3's @UnstableApi.
+    implementation 'androidx.annotation:annotation-experimental:1.3.1'
+
+    // --- Database (week 6 + week 11) ---------------------------------------
+    // Room is a thin layer over SQLite. annotationProcessor generates the code.
+    implementation 'androidx.room:room-runtime:2.5.2'
+    annotationProcessor 'androidx.room:room-compiler:2.5.2'
+
+    // --- Audio playback (week 10) ------------------------------------------
+    implementation 'androidx.media3:media3-exoplayer:1.1.1'
+    implementation 'androidx.media3:media3-common:1.1.1'
+
+    // Streaming formats. The base exoplayer library only handles a plain
+    // audio file served over HTTP. Many internet radio stations instead
+    // publish an HLS playlist (a .m3u8 file that lists short chunks), and
+    // without this module ExoPlayer throws
+    //   IllegalStateException: No suitable media source factory found
+    //   for content type: 2
+    // the moment such a station is tapped. DASH is rarer for radio but the
+    // module is small, so it is here as insurance.
+    implementation 'androidx.media3:media3-exoplayer-hls:1.1.1'
+    implementation 'androidx.media3:media3-exoplayer-dash:1.1.1'
+    // MediaSessionCompat, used only so the notification shows on the lock screen.
+    implementation 'androidx.media:media:1.6.0'
+
+    // --- Networking and JSON (week 11) -------------------------------------
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // --- Image loading -----------------------------------------------------
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+    // Reads the main colours out of an image. Used to colour the player
+    // screen from whatever album art is playing.
+    implementation 'androidx.palette:palette:1.0.0'
+
+    // --- FIREBASE (week 11) -------------------------------------------------
+    // The BoM ("bill of materials") fixes one set of versions that are known
+    // to work together, which is why the three lines under it carry no
+    // version number of their own.
+    implementation platform('com.google.firebase:firebase-bom:32.2.3')
+    implementation 'com.google.firebase:firebase-auth'        // sign up and sign in
+    implementation 'com.google.firebase:firebase-firestore'   // playlist backup
+    implementation 'com.google.firebase:firebase-database'    // play counts
+    // ------------------------------------------------------------------------
+}

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Week 9 topic: a custom item layout, reused by the RecyclerView adapter for
+  every row in the list.
+
+  The row is two lines, not three. Duration used to sit under the artist,
+  which made every row tall and the whole list restless. Moving it to the
+  right edge lines all the durations up in a column and lets the title and
+  artist breathe.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:paddingStart="16dp"
+    android:paddingEnd="4dp"
+    android:paddingTop="9dp"
+    android:paddingBottom="9dp">
+
+    <!-- ShapeableImageView rather than a plain ImageView, so the artwork is
+         rounded. The shape comes from the theme, so one edit changes every
+         piece of artwork in the app. -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/art"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Sur.Art"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Sits exactly on top of the artwork, and is only visible on the row
+         that is playing. Our second custom view draws the bouncing bars. -->
+    <com.sur.player.ui.EqualizerBarsView
+        android:id="@+id/equalizer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_art_scrim"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/art"
+        app:layout_constraintBottom_toBottomOf="@id/art"
+        app:layout_constraintStart_toStartOf="@id/art"
+        app:layout_constraintEnd_toEndOf="@id/art" />
+
+    <!-- Title and artist are a packed vertical chain, so the pair sits
+         centred against the artwork whatever the text does. -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/artist"
+        app:layout_constraintStart_toEndOf="@id/art"
+        app:layout_constraintEnd_toStartOf="@id/duration" />
+
+    <TextView
+        android:id="@+id/artist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="2dp"
+        android:alpha="0.7"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceBodySmall"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/art"
+        app:layout_constraintEnd_toStartOf="@id/duration" />
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:alpha="0.55"
+        android:textAppearance="?attr/textAppearanceLabelMedium"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/favourite" />
+
+    <ImageView
+        android:id="@+id/favourite"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/favourite"
+        android:src="@drawable/ic_favourite"
+        android:visibility="gone"
+        app:tint="?attr/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/overflow" />
+
+    <ImageButton
+        android:id="@+id/overflow"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:alpha="0.7"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/add_to_playlist"
+        android:src="@drawable/ic_more"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Week 8 topic: the AndroidManifest.
+  Everything the system needs to know about the app is declared here:
+  the permissions we ask for, and every Activity, Service, BroadcastReceiver
+  and ContentProvider the app contains.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Reading the user's songs. Android 13 (API 33) split the old
+         READ_EXTERNAL_STORAGE permission into media-specific ones. -->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <!-- Showing the playback notification (Android 13+ asks the user). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Playing in the background. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+
+    <!-- Radio streams and RSS feeds. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Re-arming the sleep timer after the phone restarts. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <application
+        android:name=".SurApp"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher_sur"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Sur"
+        tools:targetApi="31">
+
+        <!-- ================= ACTIVITIES (week 8) ========================= -->
+
+        <!--
+          LoginActivity is the launcher, not MainActivity. It decides in
+          onCreate whether to show the sign in form or go straight through,
+          so after the first run the user never sees it again.
+        -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MostPlayedActivity"
+            android:exported="false"
+            android:parentActivityName=".SettingsActivity" />
+
+        <activity
+            android:name=".PlayerActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".PlaylistDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <!-- ================= SERVICE (week 10) =========================== -->
+        <!-- A foreground service: playback keeps going after the app is closed. -->
+
+        <service
+            android:name=".service.MusicService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
+        <!-- ================= BROADCAST RECEIVERS (week 10) =============== -->
+
+        <!-- Receiver 1, declared here so it survives the app being closed:
+             re-arms the sleep-timer alarm after the phone restarts. -->
+        <receiver
+            android:name=".service.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Receiver 2: the buttons on the notification send a broadcast here,
+             and it tells the service what to do. -->
+        <receiver
+            android:name=".service.PlaybackActionReceiver"
+            android:exported="false" />
+
+        <!-- Receiver 3 (NoisyReceiver) is NOT declared here on purpose.
+             It is registered in code inside MusicService, because it only
+             matters while something is playing. Both ways are examinable. -->
+
+        <!-- ================= CONTENT PROVIDER (week 10) ================== -->
+        <!-- Our own provider. Another app can read the user's favourite songs
+             with a normal content:// query, and cannot change anything. -->
+
+        <provider
+            android:name=".data.FavouritesProvider"
+            android:authorities="com.sur.player.favourites"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:readPermission="android.permission.READ_MEDIA_AUDIO" />
+
+    </application>
+</manifest>

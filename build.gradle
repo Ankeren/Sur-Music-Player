@@ -1,0 +1,14 @@
+// Top-level build file. It only declares which plugins the modules may use.
+// The real configuration is in app/build.gradle.
+plugins {
+    // AGP 7.3.1 is the newest Android Gradle Plugin that Android Studio
+    // Dolphin 2021.3.1 can run. Do NOT accept the IDE's offer to upgrade it.
+    id 'com.android.application' version '7.3.1' apply false
+
+    // --- FIREBASE (week 11) -------------------------------------------------
+    // Reads app/google-services.json at build time and turns it into values
+    // the Firebase libraries can find. Without this plugin the SDK has no
+    // idea which Firebase project it belongs to.
+    id 'com.google.gms.google-services' version '4.3.15' apply false
+    // ------------------------------------------------------------------------
+}

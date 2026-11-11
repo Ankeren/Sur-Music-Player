@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "22212488753",
+    "firebase_url": "https://surr-5d88c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "surr-5d88c",
+    "storage_bucket": "surr-5d88c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22212488753:android:8fc5ef1ea9c0c6d680af10",
+        "android_client_info": {
+          "package_name": "com.sur.player"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANre0etrwHJRMWAkMcXphmlM_fI2yd9c8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

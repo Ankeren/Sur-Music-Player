@@ -1,0 +1,39 @@
+<resources>
+    <!--
+      Four accent colors. Each one has the same four roles:
+        primary       the bright accent (buttons, title, seek bar)
+        on_primary    text or icons drawn on top of the accent
+        container     a darker tone of the accent (selected tab, FAB, chips)
+        on_container  text or icons drawn on top of that darker tone
+    -->
+
+    <!-- Green -->
+    <color name="green_primary">#66D19E</color>
+    <color name="green_on_primary">#00391F</color>
+    <color name="green_container">#1F4D36</color>
+    <color name="green_on_container">#BFF2D6</color>
+
+    <!-- Purple -->
+    <color name="purple_primary">#CDB4FF</color>
+    <color name="purple_on_primary">#381E72</color>
+    <color name="purple_container">#4F378B</color>
+    <color name="purple_on_container">#EADDFF</color>
+
+    <!-- Orange -->
+    <color name="orange_primary">#FFB787</color>
+    <color name="orange_on_primary">#4F2500</color>
+    <color name="orange_container">#703700</color>
+    <color name="orange_on_container">#FFDCC6</color>
+
+    <!-- Blue -->
+    <color name="blue_primary">#A8C7FA</color>
+    <color name="blue_on_primary">#062E6F</color>
+    <color name="blue_container">#1F3E73</color>
+    <color name="blue_on_container">#D6E3FF</color>
+
+    <!-- A thin divider line that is visible on a dark background. -->
+    <color name="divider">#33FFFFFF</color>
+
+    <!-- Darkens album art so the bouncing bars stay visible on any cover. -->
+    <color name="art_scrim">#99000000</color>
+</resources>

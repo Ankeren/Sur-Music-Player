@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  WEEK 9 TOPIC: RelativeLayout.
+
+  One row in the "Up next" list. This file uses RelativeLayout on purpose,
+  so the project shows both of the layout managers from the course.
+
+  RelativeLayout places each child in relation to its parent or to another
+  child, using rules like layout_alignParentStart, layout_toEndOf and
+  layout_centerVertical. It is the older approach. Most screens in this app
+  use ConstraintLayout instead, because RelativeLayout has to measure its
+  children twice to work out the rules, and that gets slow once layouts are
+  nested. For a flat row like this one, either is fine.
+-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <!-- Pinned to the start edge of the parent and centred up and down. -->
+    <ImageView
+        android:id="@+id/nowPlaying"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/now_playing"
+        android:src="@drawable/ic_music"
+        android:visibility="invisible"
+        app:tint="?attr/colorPrimary" />
+
+    <!-- Placed after the icon, so it moves if the icon size ever changes. -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/nowPlaying"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceTitleSmall" />
+
+    <!-- Sits below the title, and lines up with it horizontally. -->
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/title"
+        android:layout_below="@id/title"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceBodySmall" />
+
+</RelativeLayout>

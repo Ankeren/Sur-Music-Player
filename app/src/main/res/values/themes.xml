@@ -1,0 +1,105 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+      Week 9 topic: themes and styles.
+      Theme.Sur is the base. It is always dark, and its accent is green.
+      The other three styles inherit from it and only change the accent
+      colors, so there is no repeated work. ThemeHelper picks one of the four
+      and applies it to every screen.
+    -->
+    <style name="Theme.Sur" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/green_primary</item>
+        <item name="colorOnPrimary">@color/green_on_primary</item>
+        <item name="colorPrimaryContainer">@color/green_container</item>
+        <item name="colorOnPrimaryContainer">@color/green_on_container</item>
+        <item name="colorSecondaryContainer">@color/green_container</item>
+        <item name="colorOnSecondaryContainer">@color/green_on_container</item>
+
+        <!-- Bars use the surface color, so the toolbar blends into the screen. -->
+        <item name="android:statusBarColor" tools:targetApi="21">?attr/colorSurface</item>
+        <item name="android:navigationBarColor" tools:targetApi="21">?attr/colorSurface</item>
+    </style>
+
+    <!--
+      Corner shapes. Square album art is the clearest sign of an unfinished
+      music app, so every piece of artwork in Sur is rounded through one of
+      these two styles. Keeping them here means one edit changes every screen.
+    -->
+    <style name="ShapeAppearance.Sur.Art" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Sur.ArtLarge" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <!--
+      Settings rows. Flat text buttons with the label pushed to the start and
+      an icon in front of it, so a column of them reads as a list rather than
+      a column of buttons. Still MaterialButtons underneath, which means the
+      Java is unchanged and setEnabled still greys a row out properly.
+    -->
+    <style name="Widget.Sur.SettingsRow" parent="Widget.Material3.Button.TextButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="iconPadding">20dp</item>
+        <item name="iconTint">?attr/colorPrimary</item>
+        <item name="iconSize">22dp</item>
+    </style>
+
+    <style name="Widget.Sur.SectionHeader" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">22dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceTitleSmall</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <!-- The small grey line under a row that reports its current value. -->
+    <style name="Widget.Sur.RowCaption" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">58dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:alpha">0.6</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodySmall</item>
+    </style>
+
+    <style name="Theme.Sur.Purple" parent="Theme.Sur">
+        <item name="colorPrimary">@color/purple_primary</item>
+        <item name="colorOnPrimary">@color/purple_on_primary</item>
+        <item name="colorPrimaryContainer">@color/purple_container</item>
+        <item name="colorOnPrimaryContainer">@color/purple_on_container</item>
+        <item name="colorSecondaryContainer">@color/purple_container</item>
+        <item name="colorOnSecondaryContainer">@color/purple_on_container</item>
+    </style>
+
+    <style name="Theme.Sur.Orange" parent="Theme.Sur">
+        <item name="colorPrimary">@color/orange_primary</item>
+        <item name="colorOnPrimary">@color/orange_on_primary</item>
+        <item name="colorPrimaryContainer">@color/orange_container</item>
+        <item name="colorOnPrimaryContainer">@color/orange_on_container</item>
+        <item name="colorSecondaryContainer">@color/orange_container</item>
+        <item name="colorOnSecondaryContainer">@color/orange_on_container</item>
+    </style>
+
+    <style name="Theme.Sur.Blue" parent="Theme.Sur">
+        <item name="colorPrimary">@color/blue_primary</item>
+        <item name="colorOnPrimary">@color/blue_on_primary</item>
+        <item name="colorPrimaryContainer">@color/blue_container</item>
+        <item name="colorOnPrimaryContainer">@color/blue_on_container</item>
+        <item name="colorSecondaryContainer">@color/blue_container</item>
+        <item name="colorOnSecondaryContainer">@color/blue_on_container</item>
+    </style>
+
+</resources>
